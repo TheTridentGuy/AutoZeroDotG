@@ -1,18 +1,21 @@
+#! /usr/bin/python3
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import pathlib
 
 
-class CreationHandler(FileSystemEventHandler):
-    def on_created(self, event):
+class ModificationHandler(FileSystemEventHandler):
+    def on_modified(self, event):
         if not event.is_directory and event.src_path.endswith(".gcode"):
-            print(f"Detected creation of gcode file: {event.src_path}")
             f = pathlib.Path(event.src_path)
-            f.rename(pathlib.Path(f.parent, "auto0.g"))
+            try:
+                f.rename(pathlib.Path(f.parent, "auto0.g"))
+            except FileNotFoundError:
+                pass  # we probably detected our own modifications
 
 
 observer = Observer()
-handler = CreationHandler()
+handler = ModificationHandler()
 
 
 directory = "/Volumes/"

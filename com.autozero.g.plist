@@ -5,8 +5,7 @@
     <key>Label</key>
     <string>com.autozero.g</string>
     <key>ProgramArguments</key>
-    <array>
-        <string>/usr/bin/python3</string>
+        <string>sudo</string>
         <string>/Users/aidenbohlander/Library/AutoZeroDotG/autozerodotg.py</string>
     </array>
     <key>RunAtLoad</key>
